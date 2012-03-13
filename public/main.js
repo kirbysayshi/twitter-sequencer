@@ -181,7 +181,7 @@ var CreateView = Backbone.View.extend({
 
 		if(ids.length <= 1) return;
 
-		twsq.app.navigate( 'c/' + ids.join(','), { trigger: true } );
+		twsq.app.navigate( 'c/' + ids.join(','), { trigger: true, replace: true } );
 	}
 
 });
