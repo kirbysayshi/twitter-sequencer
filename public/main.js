@@ -157,7 +157,7 @@ var Router = Backbone.Router.extend({
 	}
 
 	,root: function(){
-		twsq.app.navigate( 'b/' + '9RJEOwLTCG' )
+		twsq.app.navigate( 'b/' + '9RJEOwLTCG', { trigger: true } )
 	}
 
 	,inline: function(parseId){

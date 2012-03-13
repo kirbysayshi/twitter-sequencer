@@ -61,6 +61,7 @@ div[role=main] {
 
 .tweets-block {
 	margin: 3em 0;
+	padding-bottom: 1px;
 }
 
 .tweets-block .tweet-wrap {
