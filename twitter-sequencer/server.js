@@ -2,11 +2,15 @@ var  express = require('express')
 	,request = require('request')
 	,mongoose = require('mongoose')
 	,crypto = require('crypto')
-	,D = require('Deferred');
+	,D = require('Deferred')
+	,fs = require('fs');
+
+var dotcloudEnv = JSON.parse(fs.readFileSync('environment.json', 'utf-8'));
 
 var  models = {}
 	,schemas = {}
 	,services = { sequence: {} }
+
 	,twitter = { get: {} }
 
 	,sha1 = function(toHash){
@@ -68,7 +72,7 @@ schemas.TSequence = new mongoose.Schema({
 
 models.TTweet = mongoose.model('TTweet', schemas.TTweet);
 models.TSequence = mongoose.model('TSequence', schemas.TSequence);
-mongoose.connect('mongodb://localhost/twitter-sequence');
+mongoose.connect( dotcloudEnv.DOTCLOUD_DATA_MONGODB_URL );
 
 twitter.get.tweet = function(id_str){
 
