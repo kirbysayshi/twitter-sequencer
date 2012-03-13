@@ -1,0 +1,63 @@
+body { 
+	background-color: #343434;
+	font-family: Georgia, serif;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+a { color: #343434; text-decoration: none; -moz-transition-duration: 2s; -webkit-transition-duration: 2s; }
+a:hover { color: #999999; }
+
+header, footer {
+	position: relative;
+	font-family: Helvetica, Arial, sans-serif;
+	padding: 1px;
+	color: #dddddd;
+	text-shadow: 0px 2px #000000;
+	box-shadow: 1px 1px 2px 0px #333333, 1px -1px 2px 0px #333333
+}
+
+header a, footer a { color: #dddddd; }
+
+header .header-content, footer .footer-content {
+	width: 45%;
+	margin: 0 auto;
+}
+
+header .header-content h1 { margin-bottom: 0.2em; }
+header .header-content p, footer .footer-content p { margin: 0 0 1em 0; }
+
+.main-content {
+	width: 45%;
+	margin: 0 auto; 
+}
+
+div[role=main] {
+	padding: 1px;
+	background-color: #F2DEBD;
+}
+
+.created-at { margin: 3em 0 0 0; font-size: 1em; }
+.mode-switch { display: block; padding: 0 0 0em 0; font-size: 1em; }
+
+.tweets-inline { margin: 3em 0; font-size: 1em; line-height: 1.7em; }
+
+.tweets-block {
+	margin: 3em 0;
+}
+
+.tweets-block .tweet-wrap {
+	margin-bottom: 3em;
+}
+
+.tweets-block .tweet-wrap p {
+	margin-bottom: 0em;
+}
+
+.tweets-block .tweet-wrap blockquote {
+	margin: 0 0 0.3em;
+	font-size: 29pt;
+	text-shadow: 1px 1px #EEEEEE;
+}

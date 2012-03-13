@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Twitter Sequencer</title>
+		<link rel="stylesheet" type="text/css" href="https://raw.github.com/necolas/normalize.css/master/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="main.css" />
+	</head>
+	<body>
+
+		<header></header>
+		<div role="main"></div>
+		<footer></footer>
+
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="main.js"></script>
+
+		<script type="text/tpl" id="tweet-inline">
+			@{ var text = model.text.trim() }
+			<a href="http://twitter.com/statuses/@model.user.screen_name/@model.id_str">@text@( @text[ @text.length - 1 ] === '.' ? ' ' : '. ')</a>
+		</script>
+
+		<script type="text/tpl" id="tweet-block">
+			<div class="tweet-wrap">
+				<blockquote>
+					<p>@model.text.trim()</p>
+					&mdash; @model.user.name (@@model.user.screenName) <a href="https://twitter.com/@model.user.screen_name/status/@model.id_str">@model.created_at</a>
+				</blockquote>
+			</div>
+		</script>
+	</body>
+</html>

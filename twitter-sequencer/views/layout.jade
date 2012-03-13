@@ -1,0 +1,36 @@
+!!! html
+html(lang='en')
+	head
+		meta(charset='utf-8')
+		title Twitter Sequencer
+		link(rel="stylesheet", type="text/css", href="/normalize.css")
+		link(rel="stylesheet", type="text/css", href="/font-awesome/css/font-awesome.css")
+		link(rel="stylesheet", type="text/css", href="/main.css")
+
+	body
+
+		header
+			.header-content 
+				h1 Twitter-Sequence
+				p View tweets together.
+
+		div(role='main')
+			.main-content
+				block content
+
+		footer
+			.footer-content
+				h2 Thanks for reading a Twitter-Sequence!
+				p.
+					It's a series of tweets artificially strung 
+					together to make a more coherent whole. A sequence can be created by using an address
+					like /b/[tweet id],[tweet id], as many times as you'd like. Swap out the 'b' for 'i'
+					to view the tweets inline, as a single paragraph. 
+				
+				p Built by 
+					a(href="http://twitter.com/kirbysayshi") @kirbysayshi
+
+
+		block scripts
+			script(type='text/javascript', src='/jquery.min.js')
+			script(type='text/javascript', src='/main.js')

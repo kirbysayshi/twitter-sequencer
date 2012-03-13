@@ -1,0 +1,11 @@
+extends layout
+
+block content
+	h2.created-at Sequence created: #{sequence.created_at}
+
+	a.mode-switch(href="/b/#{sequence.tweetsStr}") Switch to block view. 
+		i.icon-arrow-right
+
+	p.tweets-inline
+		each tweet, i in sequence.tweets
+			a.tweet-wrap(title="#{tweet.user.name} (@#{tweet.user.screen_name}) #{tweet.created_at}", href="https://twitter.com/#!/#{tweet.user.screen_name}/status/#{tweet.id_str}", target="_blank") #{tweet.text.trim()} 
