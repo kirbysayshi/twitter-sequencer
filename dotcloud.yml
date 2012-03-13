@@ -1,6 +1,11 @@
 data:
   type: mongodb
-www:
-  type: nodejs
+
+nodejs:
+  type: custom
+  buildscript: nodejs/builder
+  ports:
+    www: http
+  process: node server.js
   approot: twitter-sequencer
   node_version: v0.6.10
