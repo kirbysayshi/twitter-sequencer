@@ -3,3 +3,4 @@ data:
 www:
   type: nodejs
   approot: twitter-sequencer
+  node_version: v0.6.10
