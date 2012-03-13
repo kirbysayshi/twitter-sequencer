@@ -222,6 +222,8 @@ var Router = Backbone.Router.extend({
 			if(sequence.results && sequence.results.length){
 
 				$('.main-content').html( tpl( sequence.results ) );
+
+				document.title = sequence.results[0].content.text.substring(0, 40) + '... - Twitter Sequencer';
 			}
 		})
 	}
