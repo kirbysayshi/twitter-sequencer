@@ -3,29 +3,103 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Twitter Sequencer</title>
-		<link rel="stylesheet" type="text/css" href="https://raw.github.com/necolas/normalize.css/master/normalize.css" />
-		<link rel="stylesheet" type="text/css" href="main.css" />
+
+		<link rel="stylesheet" type="text/css" href="public/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="public/font-awesome/css/font-awesome.css" />
+		<link rel="stylesheet" type="text/css" href="public/main.css" />
 	</head>
 	<body>
 
-		<header></header>
-		<div role="main"></div>
-		<footer></footer>
+		<header>
+			<div class="header-content">
+				<h1>Twitter Sequence</h1>
+				<p>View tweets together.</p>
+			</div>
+		</header>
 
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script type="text/javascript" src="main.js"></script>
+		<div role="main">
+			<div class="main-content"></div>
+		</div>
 
-		<script type="text/tpl" id="tweet-inline">
-			@{ var text = model.text.trim() }
-			<a href="http://twitter.com/statuses/@model.user.screen_name/@model.id_str">@text@( @text[ @text.length - 1 ] === '.' ? ' ' : '. ')</a>
+		<footer>
+			<div class="footer-content">
+				<h2>Thanks for reading this Twitter-Sequence!</h2>
+				<p>
+					It's a series of tweets artificially strung 
+					together to make a more coherent whole. Want to make your own? Keep reading!
+				</p>
+
+				<div class="create-sequence">
+					<h2>Make Your Own!</h2>
+					<p>
+						To create a new sequence, copy and paste the direct URL to each tweet in the inputs
+						below. If you need more inputs, just click the plus button!
+						You may add any number of tweets, up to 100.
+					</p>
+					<div class="items"></div>
+					<div class="controls">
+						<a href="#" class="add-tweet icon-plus-sign icon-large"></a>
+						<a href="#" class="create-sequence"><i class="icon-arrow-right"></i> Create Sequence!</a>
+					</div>
+				</div>
+
+				<p class="built-by">
+					Built by <a href="http://twitter.com/kirbysayshi">@kirbysayshi</a>, using
+					<a href="http://documentcloud.github.com/underscore/">Underscore</a>, 
+					<a href="http://documentcloud.github.com/backbone">Backbone</a>, 
+					<a href="https://github.com/kirbysayshi/vash">Vash</a>, and 
+					<a href="https://github.com/srhyne/jQuery-Parse">jQuery-Parse</a>. <br />Data-powered
+					by the <a href="https://www.parse.com">Parse REST API</a>.
+				</p>
+			</div>
+		</footer>
+
+		<script type="text/javascript" src="public/libs.js"></script>
+		<script type="text/javascript" src="public/main.js"></script>
+
+		<script type="text/vash-tpl" id="tweet-inline">
+			<h2 class="created-at">Sequence created: @model.createdAt</h2>
+			<a href="#b/@model.objectId" class="mode-switch">Switch to block view. <i class="icon-arrow-right"></i></a>
+
+			<p class="tweets-inline">
+				@model.body.tweets.forEach(function(tweet){
+					<a href="https://twitter.com/#!/@tweet.user.screen_name/status/@tweet.id_str" 
+						class="tweet-wrap" 
+						title="@tweet.user.name (@@@tweet.user.screen_name) @tweet.created_at"
+						target="_blank">
+						@tweet.text
+					</a>
+				})
+			</p>
 		</script>
 
-		<script type="text/tpl" id="tweet-block">
-			<div class="tweet-wrap">
-				<blockquote>
-					<p>@model.text.trim()</p>
-					&mdash; @model.user.name (@@model.user.screenName) <a href="https://twitter.com/@model.user.screen_name/status/@model.id_str">@model.created_at</a>
-				</blockquote>
+		<script type="text/vash-tpl" id="tweet-block">
+			<h2 class="created-at">Sequence created: @model.createdAt</h2>
+			<a href="#i/@model.objectId" class="mode-switch">Switch to inline view. <i class="icon-arrow-right"></i></a>
+
+			<div class="tweets-block">
+				@model.body.tweets.forEach(function(tweet){
+					<div class="tweet-wrap">
+						<blockquote>@tweet.text</blockquote>
+						<p>&mdash; @tweet.user.name (@@@tweet.user.screen_name) 
+							<a href="https://twitter.com/#!/@tweet.user.screen_name/status/@tweet.id_str">@tweet.created_at</a>
+						</p>
+					</div>
+				})
+			</div>
+		</script>
+
+		<script type="text/vash-tpl" id="new-item">
+			<div class="new-item">
+				<input type="text" placeholder="Direct Tweet URL" />
+				<a class="remove-tweet icon-remove-sign icon-large" title="Remove"></a>
+			</div>
+		</script>
+
+		<script type="text/vash-tpl" id="creating-new">
+			<div class="creating-new">
+				<h2>Creating sequence, please wait...</h2>
+				<img src="/public/img/loader.gif" alt="loading" />
 			</div>
 		</script>
 	</body>
