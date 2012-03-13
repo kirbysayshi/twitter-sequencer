@@ -73,14 +73,14 @@
 		<script type="text/javascript" src="public/main.js"></script>
 
 		<script type="text/vash-tpl" id="tweet-inline">
-			<h2 class="created-at">Sequence created: @model.createdAt</h2>
-			<a href="#b/@model.objectId" class="mode-switch">Switch to block view. <i class="icon-arrow-right"></i></a>
+			<h2 class="created-at">Sequence created: @model[0].tsequence.createdAt</h2>
+			<a href="#b/@model[0].tsequence.objectId" class="mode-switch">Switch to block view. <i class="icon-arrow-right"></i></a>
 
 			<p class="tweets-inline">
-				@model.body.tweets.forEach(function(tweet){
-					<a href="https://twitter.com/#!/@tweet.user.screen_name/status/@tweet.id_str" 
+				@model.forEach(function(tweet){
+					<a href="https://twitter.com/#!/@tweet.content.user.screen_name/status/@tweet.content.id_str" 
 						class="tweet-wrap" 
-						title="@tweet.user.name (@@@tweet.user.screen_name) @tweet.created_at"
+						title="@tweet.content.user.name (@@@tweet.content.user.screen_name) @tweet.content.created_at"
 						target="_blank">
 						@tweet.text
 					</a>
@@ -89,15 +89,15 @@
 		</script>
 
 		<script type="text/vash-tpl" id="tweet-block">
-			<h2 class="created-at">Sequence created: @model.createdAt</h2>
-			<a href="#i/@model.objectId" class="mode-switch">Switch to inline view. <i class="icon-arrow-right"></i></a>
+			<h2 class="created-at">Sequence created: @model[0].tsequence.createdAt</h2>
+			<a href="#i/@model[0].tsequence.objectId" class="mode-switch">Switch to inline view. <i class="icon-arrow-right"></i></a>
 
 			<div class="tweets-block">
-				@model.body.tweets.forEach(function(tweet){
+				@model.forEach(function(tweet){
 					<div class="tweet-wrap">
-						<blockquote>@tweet.text</blockquote>
-						<p>&mdash; @tweet.user.name (@@@tweet.user.screen_name) 
-							<a href="https://twitter.com/#!/@tweet.user.screen_name/status/@tweet.id_str">@tweet.created_at</a>
+						<blockquote>@tweet.content.text</blockquote>
+						<p>&mdash; @tweet.content.user.name (@@@tweet.content.user.screen_name) 
+							<a href="https://twitter.com/#!/@tweet.content.user.screen_name/status/@tweet.content.id_str">@tweet.content.created_at</a>
 						</p>
 					</div>
 				})

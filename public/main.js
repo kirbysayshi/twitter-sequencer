@@ -14,7 +14,10 @@ var twsq = exports.twsq = {
 				});
 			}
 
-			return $.parse.get('tsequences/' + parseId 	).done(function(sequence){
+			//var where = { 'sequenceId': parseId };
+			var where = { 'tsequence': { '__type': 'Pointer', 'className': 'tsequence', 'objectId': parseId } };
+
+			return $.parse.get('ttweet?order=sortOrder&include=tsequence', where).done(function(sequence){
 				if(window.localStorage){
 					window.localStorage[parseId] = JSON.stringify(sequence);
 				}
@@ -22,8 +25,50 @@ var twsq = exports.twsq = {
 		}
 
 		,saveSequence: function(tweets){
-			var m = new TweetSequenceModel({ tweets: tweets })
-			return $.parse.post('tsequences', { body: m.toJSON() });
+
+			var dfd = new $.Deferred();
+			
+			$.parse
+				.post('tsequence',{ tweetCount: tweets.length })
+				.then(function(json){
+
+					var dfds = [];
+
+					if(json.objectId){
+						tweets.forEach(function(t, i){
+							var body = {
+								 content: t
+								,tsequence: { __type: 'Pointer', className: 'tsequence', objectId: json.objectId } 
+								,sortOrder: i
+							}
+
+							dfds.push( $.parse.post('ttweet', body) );
+						});
+					}
+
+					$.when.apply($, dfds).then(function(){
+
+						[].slice.apply(arguments).forEach(function(req){
+
+							// 0 = responseObj
+							// 1 = statusText
+							// 2 = jqXHR
+
+							if(req[2].status !== 201){
+								dfd.reject( req );
+							}
+						})
+
+						if(dfd.state() !== 'rejected'){
+							// tweets were successful, resolve with original sequence result
+							dfd.resolve( json )
+						}
+
+					}, dfd.reject);
+
+				}, twsq.error);
+
+			return dfd;
 		}
 	}
 
@@ -74,11 +119,13 @@ var twsq = exports.twsq = {
 	}
 }
 
-var TweetSequenceModel = Backbone.Model.extend({
+var TweetModel = Backbone.Model.extend({
 	defaults: {
-		tweets: []
+		sequenceId: []
 	}
 });
+
+var TweetsCollection = Backbone.Collection.extend({ model: TweetModel });
 
 var CreateView = Backbone.View.extend({
 
@@ -172,9 +219,9 @@ var Router = Backbone.Router.extend({
 
 	,render: function(parseId, tpl){
 		twsq.parse.getSequence(parseId).then(function(sequence){
-			if(sequence.objectId !== null){
+			if(sequence.results && sequence.results.length){
 
-				$('.main-content').html( tpl( sequence ) );
+				$('.main-content').html( tpl( sequence.results ) );
 			}
 		})
 	}
