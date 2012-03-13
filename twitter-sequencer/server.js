@@ -5,7 +5,9 @@ var  express = require('express')
 	,D = require('Deferred')
 	,fs = require('fs');
 
+console.log('reading env file');
 var dotcloudEnv = JSON.parse(fs.readFileSync('environment.json', 'utf-8'));
+console.log(dotcloudEnv);
 
 var  models = {}
 	,schemas = {}
