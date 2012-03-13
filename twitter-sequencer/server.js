@@ -245,5 +245,5 @@ app.get('/i/:tweets', function(req, res, next){
 
 })
 
-app.listen(8080);
-console.log('app listening at port 8080');
+app.listen(dotcloudEnv.PORT_WWW);
+console.log('app listening at port ' + dotcloudEnv.PORT_WWW);
