@@ -142,7 +142,8 @@ var CreateView = Backbone.View.extend({
 var Router = Backbone.Router.extend({
 
 	routes: {
-		 'i/:parseId': 'inline'
+		 '': 'root'
+		,'i/:parseId': 'inline'
 		,'b/:parseId': 'block'
 		,'c/:ids': 'create'
 		,'404': 'notFound'
@@ -153,6 +154,10 @@ var Router = Backbone.Router.extend({
 			 app_id : twsq.parse.app_id
 			,rest_key : twsq.parse.rest_key
 		});
+	}
+
+	,root: function(){
+		twsq.app.navigate( 'b/' + '9RJEOwLTCG' )
 	}
 
 	,inline: function(parseId){
