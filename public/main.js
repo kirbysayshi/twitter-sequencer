@@ -201,6 +201,12 @@ var Router = Backbone.Router.extend({
 			 app_id : twsq.parse.app_id
 			,rest_key : twsq.parse.rest_key
 		});
+
+		this.bind('all', this.trackPageView, this);
+	}
+
+	,trackPageView: function(){
+		return _gaq.push(['_trackPageView'], '/' + Backbone.history.getFragment());
 	}
 
 	,root: function(){
